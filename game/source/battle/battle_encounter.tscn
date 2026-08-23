@@ -232,17 +232,17 @@ color = Color(0.423529, 0.427451, 0.333333, 1)
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 104.0
-offset_bottom = 42.0
+offset_right = 94.0
+offset_bottom = 38.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_hpbox_e")
 expand_mode = 1
 
 [node name="EnemyName" type="Label" parent="Root"]
 layout_mode = 0
-offset_left = 14.0
+offset_left = 13.0
 offset_top = 10.0
-offset_right = 14.0
+offset_right = 13.0
 offset_bottom = 10.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
@@ -254,9 +254,9 @@ anchors_preset = 0
 
 [node name="LevelLabel" type="Label" parent="Root/EnemyHPBox"]
 layout_mode = 0
-offset_left = 74.0
+offset_left = 67.0
 offset_top = 10.0
-offset_right = 74.0
+offset_right = 67.0
 offset_bottom = 10.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 6
@@ -265,19 +265,19 @@ text = "Lv.200"
 
 [node name="BarBack" type="ColorRect" parent="Root/EnemyHPBox"]
 layout_mode = 0
-offset_left = 28.0
-offset_top = 28.0
-offset_right = 95.0
-offset_bottom = 36.0
+offset_left = 26.0
+offset_top = 25.0
+offset_right = 87.0
+offset_bottom = 32.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
 [node name="BarFill" type="ColorRect" parent="Root/EnemyHPBox"]
 layout_mode = 0
-offset_left = 28.0
-offset_top = 28.0
-offset_right = 95.0
-offset_bottom = 36.0
+offset_left = 26.0
+offset_top = 25.0
+offset_right = 87.0
+offset_bottom = 32.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
@@ -285,17 +285,17 @@ color = Color(0.219608, 0.721569, 0.219608, 1)
 layout_mode = 0
 offset_left = 134.0
 offset_top = 64.0
-offset_right = 234.0
-offset_bottom = 100.0
+offset_right = 230.0
+offset_bottom = 96.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_hpbox_p")
 expand_mode = 1
 
 [node name="PlayerName" type="Label" parent="Root"]
 layout_mode = 0
-offset_left = 142.0
+offset_left = 141.0
 offset_top = 68.0
-offset_right = 142.0
+offset_right = 141.0
 offset_bottom = 68.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
@@ -307,9 +307,9 @@ anchors_preset = 0
 
 [node name="LevelLabel" type="Label" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 206.0
+offset_left = 204.0
 offset_top = 68.0
-offset_right = 206.0
+offset_right = 204.0
 offset_bottom = 68.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 6
@@ -318,19 +318,19 @@ text = "Lv.5"
 
 [node name="BarBack" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 86.0
-offset_right = 226.0
-offset_bottom = 94.0
+offset_left = 156.0
+offset_top = 83.0
+offset_right = 222.0
+offset_bottom = 90.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
 [node name="BarFill" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 157.0
-offset_top = 86.0
-offset_right = 226.0
-offset_bottom = 94.0
+offset_left = 156.0
+offset_top = 83.0
+offset_right = 222.0
+offset_bottom = 90.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
@@ -386,15 +386,15 @@ text = "v"
 [node name="ActionMenu" type="GridContainer" parent="Root"]
 layout_mode = 0
 offset_left = 162.0
-offset_top = 106.0
-offset_right = 238.0
+offset_top = 111.0
+offset_right = 233.0
 offset_bottom = 158.0
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 2
 
 [node name="BtnAskOut" type="Button" parent="Root/ActionMenu"]
-custom_minimum_size = Vector2(36, 24)
+custom_minimum_size = Vector2(34, 22)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_34ij3")
 theme_override_styles/hover = SubResource("StyleBoxFlat_iq7f7")
@@ -404,7 +404,7 @@ theme_override_font_sizes/font_size = 6
 text = "ASK OUT"
 
 [node name="BtnAttack" type="Button" parent="Root/ActionMenu"]
-custom_minimum_size = Vector2(36, 24)
+custom_minimum_size = Vector2(34, 22)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_ta0aa")
 theme_override_styles/hover = SubResource("StyleBoxFlat_p4qid")
@@ -414,7 +414,7 @@ theme_override_font_sizes/font_size = 6
 text = "ATTACK"
 
 [node name="BtnOverthink" type="Button" parent="Root/ActionMenu"]
-custom_minimum_size = Vector2(36, 24)
+custom_minimum_size = Vector2(34, 22)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_sgw3g")
 theme_override_styles/hover = SubResource("StyleBoxFlat_hxu8o")
@@ -424,7 +424,7 @@ theme_override_font_sizes/font_size = 6
 text = "OVERTHINK"
 
 [node name="BtnRun" type="Button" parent="Root/ActionMenu"]
-custom_minimum_size = Vector2(36, 24)
+custom_minimum_size = Vector2(34, 22)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_trnsx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_j57pp")
