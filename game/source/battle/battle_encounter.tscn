@@ -1,9 +1,13 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene load_steps=28 format=3]
 
 [ext_resource type="Script" path="res://source/battle/battle_encounter.gd" id="1_6hsnw"]
 [ext_resource type="FontFile" path="res://assets/fonts/pokemon-firered-leafgreen-font.otf" id="2_egt8j"]
 [ext_resource type="Texture2D" path="res://assets/sprites/people/rs_may.png" id="3_rte7a"]
 [ext_resource type="Texture2D" path="res://assets/sprites/people/red/red_normal.png" id="4_ppbl0"]
+[ext_resource type="Texture2D" path="res://assets/battle/battle-bg.jpeg" id="5_bgjpg"]
+[ext_resource type="Texture2D" path="res://assets/battle/hp-box-top.png" id="6_hptop"]
+[ext_resource type="Texture2D" path="res://assets/battle/hp-box-bottom.png" id="7_hpbot"]
+[ext_resource type="Texture2D" path="res://assets/battle/enemy_icon.png" id="8_enico"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8m8g1"]
 atlas = ExtResource("3_rte7a")
@@ -12,6 +16,14 @@ region = Rect2(0, 0, 16, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxgat"]
 atlas = ExtResource("4_ppbl0")
 region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpbox_e"]
+atlas = ExtResource("6_hptop")
+region = Rect2(105, 298, 989, 299)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpbox_p"]
+atlas = ExtResource("7_hpbot")
+region = Rect2(105, 298, 989, 299)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8wrf"]
 bg_color = Color(1, 1, 1, 1)
@@ -199,12 +211,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="ArenaBG" type="ColorRect" parent="Root"]
+[node name="ArenaBG" type="TextureRect" parent="Root"]
 layout_mode = 0
 offset_right = 240.0
 offset_bottom = 104.0
 mouse_filter = 2
-color = Color(0.227451, 0.662745, 0.886275, 1)
+texture = ExtResource("5_bgjpg")
+expand_mode = 1
+stretch_mode = 6
 
 [node name="PanelBG" type="ColorRect" parent="Root"]
 layout_mode = 0
@@ -214,23 +228,15 @@ offset_bottom = 160.0
 mouse_filter = 2
 color = Color(0.423529, 0.427451, 0.333333, 1)
 
-[node name="EnemyBorder" type="ColorRect" parent="Root"]
+[node name="EnemyBox" type="TextureRect" parent="Root"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 104.0
 offset_bottom = 42.0
 mouse_filter = 2
-color = Color(0.168627, 0.168627, 0.133333, 1)
-
-[node name="EnemyBg" type="ColorRect" parent="Root"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 102.0
-offset_bottom = 40.0
-mouse_filter = 2
-color = Color(0.913725, 0.898039, 0.823529, 1)
+texture = SubResource("AtlasTexture_hpbox_e")
+expand_mode = 1
 
 [node name="EnemyName" type="Label" parent="Root"]
 layout_mode = 0
@@ -259,39 +265,31 @@ text = "Lv.200"
 
 [node name="BarBack" type="ColorRect" parent="Root/EnemyHPBox"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 26.0
-offset_right = 94.0
-offset_bottom = 32.0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 95.0
+offset_bottom = 36.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
 [node name="BarFill" type="ColorRect" parent="Root/EnemyHPBox"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 26.0
-offset_right = 94.0
-offset_bottom = 32.0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = 95.0
+offset_bottom = 36.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
-[node name="PlayerBorder" type="ColorRect" parent="Root"]
+[node name="PlayerBox" type="TextureRect" parent="Root"]
 layout_mode = 0
 offset_left = 134.0
 offset_top = 64.0
 offset_right = 234.0
 offset_bottom = 100.0
 mouse_filter = 2
-color = Color(0.168627, 0.168627, 0.133333, 1)
-
-[node name="PlayerBg" type="ColorRect" parent="Root"]
-layout_mode = 0
-offset_left = 136.0
-offset_top = 66.0
-offset_right = 232.0
-offset_bottom = 98.0
-mouse_filter = 2
-color = Color(0.913725, 0.898039, 0.823529, 1)
+texture = SubResource("AtlasTexture_hpbox_p")
+expand_mode = 1
 
 [node name="PlayerName" type="Label" parent="Root"]
 layout_mode = 0
@@ -320,19 +318,19 @@ text = "Lv.5"
 
 [node name="BarBack" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 144.0
-offset_top = 84.0
-offset_right = 224.0
-offset_bottom = 90.0
+offset_left = 157.0
+offset_top = 86.0
+offset_right = 226.0
+offset_bottom = 94.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
 [node name="BarFill" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 144.0
-offset_top = 84.0
-offset_right = 224.0
-offset_bottom = 90.0
+offset_left = 157.0
+offset_top = 86.0
+offset_right = 226.0
+offset_bottom = 94.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
@@ -343,7 +341,9 @@ offset_left = 172.0
 offset_top = 12.0
 offset_right = 214.0
 offset_bottom = 68.0
-texture = SubResource("AtlasTexture_8m8g1")
+texture = ExtResource("8_enico")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="PlayerSprite" type="TextureRect" parent="Root"]
 texture_filter = 1
