@@ -120,7 +120,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../PlayerHouseWarper")
-target_area = NodePath("../..")
+target_area = NodePath("..")
 exit_direction = 2
 
 [node name="SecondFloorWarper" type="Area2D" parent="PalletTown/PlayerHouse1F" node_paths=PackedStringArray("target", "target_area") instance=ExtResource("3_n833l")]
@@ -129,7 +129,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../PlayerHouse2F/SecondFloorWarper")
-target_area = NodePath("../../PlayerHouse2F")
+target_area = NodePath("..")
 exit_direction = 0
 
 [node name="PlayerHouse2F" type="Node2D" parent="PalletTown" instance=ExtResource("4_bsp47")]
@@ -141,7 +141,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../PlayerHouse1F/SecondFloorWarper")
-target_area = NodePath("../../PlayerHouse1F")
+target_area = NodePath("..")
 exit_direction = 1
 
 [node name="PlayerHouseWarper" type="Area2D" parent="PalletTown" node_paths=PackedStringArray("target", "target_area") instance=ExtResource("3_n833l")]
@@ -150,7 +150,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../PlayerHouse1F/PlayerHouseWarper")
-target_area = NodePath("../PlayerHouse1F")
+target_area = NodePath("..")
 
 [node name="EnvironmentArea" type="Area2D" parent="PalletTown" instance=ExtResource("6_bsp47")]
 monitorable = false
@@ -167,7 +167,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../Ghatkopar/PalletTownWarper")
-target_area = NodePath("../../Ghatkopar")
+target_area = NodePath("..")
 
 [node name="GhatkoparWarper2" type="Area2D" parent="PalletTown" node_paths=PackedStringArray("target", "target_area") instance=ExtResource("3_n833l")]
 position = Vector2(216, 8)
@@ -175,7 +175,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../Ghatkopar/PalletTownWarper")
-target_area = NodePath("../../Ghatkopar")
+target_area = NodePath("..")
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("map_root") instance=ExtResource("4_lxh0y")]
 position = Vector2(472, 104)
@@ -309,7 +309,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../PalletTown/GhatkoparWarper")
-target_area = NodePath("../../PalletTown")
+target_area = NodePath("..")
 
 [node name="MallDoorWarper" type="Area2D" parent="Ghatkopar" node_paths=PackedStringArray("target", "target_area") instance=ExtResource("3_n833l")]
 position = Vector2(120, 104)
@@ -317,7 +317,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../RCityMall/CityDoorWarper")
-target_area = NodePath("../../RCityMall")
+target_area = NodePath("..")
 
 [node name="RCityMall" type="Node2D" parent="."]
 position = Vector2(8000, 0)
@@ -336,7 +336,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../Ghatkopar/MallDoorWarper")
-target_area = NodePath("../../Ghatkopar")
+target_area = NodePath("..")
 
 [node name="ElevatorWarper" type="Area2D" parent="RCityMall" node_paths=PackedStringArray("target", "target_area") instance=ExtResource("3_n833l")]
 position = Vector2(184, 248)
@@ -345,7 +345,7 @@ monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../Office/ElevatorWarper")
 exit_direction = 2
-target_area = NodePath("../../Office")
+target_area = NodePath("..")
 
 [node name="Office" type="Node2D" parent="."]
 position = Vector2(11000, 0)
@@ -373,6 +373,6 @@ input_pickable = false
 monitorable = false
 script = ExtResource("5_rha77")
 target = NodePath("../../RCityMall/ElevatorWarper")
-target_area = NodePath("../../RCityMall")
+target_area = NodePath("..")
 
 [connection signal="body_entered" from="PalletTown/EnvironmentArea" to="PalletTown/EnvironmentArea" method="_on_body_entered"]
