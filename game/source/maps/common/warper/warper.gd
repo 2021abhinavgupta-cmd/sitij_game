@@ -16,6 +16,12 @@ enum Direction {LEFT, RIGHT, UP, DOWN}
 	set = _set_target
 @export var exit_direction: Direction = Direction.DOWN:
 	set = _set_exit_direction
+## Optional: set when this warper's target lives in a different area than the
+## player's current map_root (own Ground/UpperGround TileMapLayer pair), e.g.
+## City -> Mall -> Office. Leave unset for warps within a single shared area
+## (matches original Route1/PalletTown behavior, where player.ground/
+## upper_ground never need to change on warp).
+@export var target_area: Node2D
 
 var can_teleport: bool = true
 
@@ -53,6 +59,11 @@ func _notification(what: int) -> void:
 
 func warp_player(player: Player) -> void:
 	can_teleport = false
+	if target_area:
+		player.map_root = target_area
+		player.ground = target_area.get_child(0)
+		player.upper_ground = target_area.get_child(1)
+		player.camera_2d.set_camera_limits_from_tilemap(player.ground)
 	player.global_position = global_position - Vector2(8, 8)
 	var direction: Vector2
 	match exit_direction:
@@ -67,7 +78,10 @@ func warp_player(player: Player) -> void:
 	var target_position: Vector2 = (player.global_position + direction * 16).snappedf(16)
 	var tween: Tween = create_tween()
 	tween.tween_property(player, "global_position", target_position, 0.4)
-	await tween.finished
+	var wait_time: float = 0.0
+	while tween.is_valid() and tween.is_running() and wait_time < 1.0:
+		await get_tree().process_frame
+		wait_time += get_process_delta_time()
 	player.set_physics_process(true)
 
 
@@ -96,8 +110,10 @@ func _on_area_body_entered(body: Node2D) -> void:
 	if not can_teleport or body is not Player:
 		return
 	body.set_physics_process(false)
-	if body.movement_tween and body.movement_tween.is_valid():
-		await body.movement_tween.finished
+	var wait_time: float = 0.0
+	while body.is_moving and wait_time < 1.0:
+		await get_tree().process_frame
+		wait_time += get_process_delta_time()
 	target.warp_player(body)
 
 

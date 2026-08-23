@@ -1,0 +1,311 @@
+class_name BattleEncounter
+extends CanvasLayer
+## Native port of the "Rare Encounter" web battle minigame (originally built as a
+## Next.js/React prototype) into this project's GDScript/TileMap game. Same
+## mechanics, flavor text and jokes; UI sized for this project's 240x160 GBA
+## viewport instead of a browser card.
+
+signal finished(won: bool)
+
+enum Phase { DIALOG, ACTION, WIN, LOSE }
+enum Action { ASK_OUT, ATTACK, OVERTHINK, RUN }
+
+const MAX_HP := 5
+const CRUSH_MAX_HP := 20
+const ATTACK_DAMAGE := 4 # ceil(MAX_HP * 0.75)
+const APPEAR := "A pretty girl AARYA appeared!"
+const CHAR_DELAY := 0.046
+
+const RUN_SETS := [
+	["ABHINAV: maybe I should just leave?", "AARYA: no.", "...ok fine."],
+	["ABHINAV looked for an exit..", "AARYA is everywhere.", "Nice try."],
+	["ABHINAV tried to run.", "But AARYA blocked the way!", "There is no escape."],
+]
+
+@onready var enemy_bar_fill: ColorRect = $Root/EnemyHPBox/BarFill
+@onready var enemy_bar_back: ColorRect = $Root/EnemyHPBox/BarBack
+@onready var enemy_level_label: Label = $Root/EnemyHPBox/LevelLabel
+@onready var enemy_sprite: TextureRect = $Root/EnemySprite
+
+@onready var player_bar_fill: ColorRect = $Root/PlayerHPBox/BarFill
+@onready var player_bar_back: ColorRect = $Root/PlayerHPBox/BarBack
+@onready var player_level_label: Label = $Root/PlayerHPBox/LevelLabel
+@onready var player_sprite: TextureRect = $Root/PlayerSprite
+
+@onready var dialog_panel: Panel = $Root/DialogPanel
+@onready var dialog_label: Label = $Root/DialogPanel/DialogLabel
+@onready var advance_hint: Label = $Root/DialogPanel/AdvanceHint
+
+@onready var action_menu: Control = $Root/ActionMenu
+@onready var btn_ask_out: Button = $Root/ActionMenu/BtnAskOut
+@onready var btn_attack: Button = $Root/ActionMenu/BtnAttack
+@onready var btn_overthink: Button = $Root/ActionMenu/BtnOverthink
+@onready var btn_run: Button = $Root/ActionMenu/BtnRun
+
+@onready var win_panel: Control = $Root/WinPanel
+@onready var win_label: Label = $Root/WinPanel/WinLabel
+@onready var win_replay_btn: Button = $Root/WinPanel/ReplayButton
+
+@onready var lose_panel: Control = $Root/LosePanel
+@onready var lose_label: Label = $Root/LosePanel/LoseLabel
+@onready var retry_btn: Button = $Root/LosePanel/RetryButton
+@onready var quit_btn: Button = $Root/LosePanel/QuitButton
+
+@onready var type_timer: Timer = $TypeTimer
+
+var player_hp := MAX_HP
+var crush_hp := CRUSH_MAX_HP
+var courage_stat := 5
+var phase: Phase = Phase.DIALOG
+var message := ""
+var queue: Array = []
+var run_count := 0
+var overthink_count := 0
+var attack_count := 0
+var pending_damage := 0
+var pending_lose := false
+var pending_win := false
+
+var _shown_chars := 0
+var _dialog_done := false
+
+
+func _ready() -> void:
+	btn_ask_out.pressed.connect(func(): do_action(Action.ASK_OUT))
+	btn_attack.pressed.connect(func(): do_action(Action.ATTACK))
+	btn_overthink.pressed.connect(func(): do_action(Action.OVERTHINK))
+	btn_run.pressed.connect(func(): do_action(Action.RUN))
+	dialog_panel.gui_input.connect(_on_dialog_input)
+	type_timer.timeout.connect(_on_type_tick)
+	win_replay_btn.pressed.connect(_on_replay)
+	retry_btn.pressed.connect(_on_replay)
+	quit_btn.mouse_entered.connect(_flee_quit)
+
+	player_bar_back.color = Color("#3a3a2e")
+	enemy_bar_back.color = Color("#3a3a2e")
+
+	start_encounter()
+
+
+func start_encounter() -> void:
+	player_hp = MAX_HP
+	crush_hp = CRUSH_MAX_HP
+	courage_stat = 5
+	run_count = 0
+	overthink_count = 0
+	attack_count = 0
+	pending_damage = 0
+	pending_lose = false
+	pending_win = false
+	win_panel.hide()
+	lose_panel.hide()
+	action_menu.hide()
+	dialog_panel.show()
+	set_phase_dialog(APPEAR, [])
+	update_hp_ui()
+
+
+func set_phase_dialog(msg: String, q: Array) -> void:
+	phase = Phase.DIALOG
+	message = msg
+	queue = q.duplicate()
+	_start_typing()
+
+
+func _start_typing() -> void:
+	_shown_chars = 0
+	_dialog_done = false
+	dialog_label.text = ""
+	advance_hint.hide()
+	type_timer.start(CHAR_DELAY)
+
+
+func _on_type_tick() -> void:
+	_shown_chars += 1
+	dialog_label.text = message.substr(0, _shown_chars)
+	if _shown_chars >= message.length():
+		type_timer.stop()
+		_dialog_done = true
+		advance_hint.show()
+
+
+func _on_dialog_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		advance_dialog()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") and phase == Phase.DIALOG and _dialog_done:
+		advance_dialog()
+	elif event.is_action_pressed("ui_cancel") and (phase == Phase.WIN or phase == Phase.LOSE):
+		finished.emit(phase == Phase.WIN)
+
+
+func advance_dialog() -> void:
+	if phase != Phase.DIALOG or not _dialog_done:
+		return
+
+	if queue.size() > 0:
+		var next_msg: String = queue[0]
+		var next_queue: Array = queue.slice(1)
+
+		if pending_damage > 0 and next_queue.is_empty():
+			var new_hp: int = max(0, player_hp - pending_damage)
+			pending_damage = 0
+			player_hp = new_hp
+			update_hp_ui()
+			_shake(player_sprite)
+			if new_hp <= 0:
+				message = next_msg
+				queue = ["ABHINAV fainted..."]
+				pending_lose = true
+				_start_typing()
+				return
+			message = next_msg
+			queue = []
+			_start_typing()
+			return
+
+		if next_msg == "A critical hit!":
+			message = next_msg
+			queue = next_queue
+			_bounce(enemy_sprite)
+			_start_typing()
+			return
+
+		if pending_win and next_queue.is_empty():
+			message = next_msg
+			queue = []
+			_start_typing()
+			return
+
+		message = next_msg
+		queue = next_queue
+		_start_typing()
+		return
+
+	if pending_lose:
+		pending_lose = false
+		show_lose()
+		return
+	if pending_win:
+		pending_win = false
+		show_win()
+		return
+
+	phase = Phase.ACTION
+	dialog_label.text = "What will\nABHINAV do?"
+	advance_hint.hide()
+	action_menu.show()
+
+
+func do_action(action: Action) -> void:
+	action_menu.hide()
+	match action:
+		Action.RUN:
+			var lines: Array = RUN_SETS[run_count % RUN_SETS.size()]
+			run_count += 1
+			set_phase_dialog(lines[0], lines.slice(1))
+
+		Action.OVERTHINK:
+			var n := overthink_count
+			var msg: String
+			var q: Array
+			if n == 0:
+				msg = "ABHINAV is thinking...\nABHINAV is thinking..."
+				q = ["ABHINAV hurt himself\nin confusion!", "-15 HP!"]
+			elif n == 1:
+				msg = "Still thinking..."
+				q = ["ABHINAV hurt himself\nagain!", "-15 HP again!"]
+			else:
+				msg = "...ABHINAV, please."
+				q = ["AARYA sighs quietly.", "-15 HP"]
+			overthink_count += 1
+			pending_damage = 1
+			set_phase_dialog(msg, q)
+
+		Action.ATTACK:
+			var flavor := "KISSES" if attack_count % 2 == 0 else "HUGS"
+			attack_count += 1
+			crush_hp = max(0, crush_hp - 1)
+			courage_stat = min(99, courage_stat + 5)
+			pending_damage = ATTACK_DAMAGE
+			update_hp_ui()
+			_shake(enemy_sprite)
+			set_phase_dialog("ABHINAV used ATTACK!", [
+				"It did 1 damage.",
+				"AARYA fights back!",
+				"AARYA used %s!\n-99 HP" % flavor,
+			])
+
+		Action.ASK_OUT:
+			pending_win = true
+			set_phase_dialog("ABHINAV took a deep breath...", [
+				"ABHINAV used ASK OUT!",
+				"It's super effective!",
+				"A critical hit!",
+				"AARYA fainted...",
+				"AARYA fainted..\nwith joy",
+			])
+
+
+func show_win() -> void:
+	phase = Phase.WIN
+	dialog_panel.hide()
+	action_menu.hide()
+	win_label.text = "★ AARYA joined\nyour party! ★\n\nCOURAGE -> MAX\nHEART -> MAX\n[NEW SKILL: CUDDLES]\n\n(ESC to leave, REPLAY to fight again)"
+	win_panel.show()
+
+
+func show_lose() -> void:
+	phase = Phase.LOSE
+	dialog_panel.hide()
+	action_menu.hide()
+	lose_label.text = "GAME OVER\n\nyou missed the opportunity...\nbut ABHINAV never loses hope...\n\n(ESC to leave)"
+	quit_btn.position = Vector2(120, 40)
+	lose_panel.show()
+
+
+func _on_replay() -> void:
+	start_encounter()
+
+
+func _flee_quit() -> void:
+	var x: float = 4 + randf() * 190
+	var y: float = 30 + randf() * 40
+	quit_btn.position = Vector2(x, y)
+
+
+func update_hp_ui() -> void:
+	var e_pct: float = float(crush_hp) / CRUSH_MAX_HP
+	var p_pct: float = float(player_hp) / MAX_HP
+	enemy_bar_fill.size.x = enemy_bar_back.size.x * e_pct
+	player_bar_fill.size.x = player_bar_back.size.x * p_pct
+	enemy_bar_fill.color = _hp_color(e_pct)
+	player_bar_fill.color = _hp_color(p_pct)
+	enemy_level_label.text = "Lv.200"
+	player_level_label.text = "Lv.%d" % courage_stat
+
+
+func _hp_color(pct: float) -> Color:
+	if pct > 0.5:
+		return Color("#38b838")
+	elif pct > 0.25:
+		return Color("#c8b030")
+	return Color("#c83030")
+
+
+func _shake(node: Control) -> void:
+	var tween := create_tween()
+	var start_pos := node.position
+	for i in range(4):
+		var off := 4.0 if i % 2 == 0 else -4.0
+		tween.tween_property(node, "position:x", start_pos.x + off, 0.05)
+	tween.tween_property(node, "position:x", start_pos.x, 0.05)
+
+
+func _bounce(node: Control) -> void:
+	var tween := create_tween().set_loops(3)
+	var start_pos := node.position
+	tween.tween_property(node, "position:y", start_pos.y - 6, 0.15)
+	tween.tween_property(node, "position:y", start_pos.y, 0.15)

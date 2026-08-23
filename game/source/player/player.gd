@@ -19,6 +19,7 @@ var last_input_vector: Vector2
 var input_stack: Array[String]
 
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var camera_2d: Camera2D = $Camera2D
 
 
 func _ready() -> void:
@@ -26,6 +27,7 @@ func _ready() -> void:
 		map_root = get_parent()
 	ground = map_root.get_child(0)
 	upper_ground = map_root.get_child(1)
+	camera_2d.set_camera_limits_from_tilemap(ground)
 	snap_to_grid_map()
 	if Global.version_config:
 		if ResourceLoader.exists(Global.version_config.get_value("Player", "normal_sprite")):

@@ -1,0 +1,13 @@
+:{$PORT}
+
+root * /srv
+file_server
+encode gzip
+
+header {
+	Cross-Origin-Opener-Policy same-origin
+	Cross-Origin-Embedder-Policy require-corp
+}
+
+@wasm path *.wasm
+header @wasm Content-Type application/wasm

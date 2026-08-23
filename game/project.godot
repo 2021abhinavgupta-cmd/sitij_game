@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pokemon FireLeaf"
-run/main_scene="uid://bkb1f51ydaji0"
+run/main_scene="res://source/maps/overworld/overworld.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 

@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# local Web export test output (Railway builds its own during deploy)
+/web-build/
+game/web-build/

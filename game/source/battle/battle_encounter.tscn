@@ -1,0 +1,528 @@
+[gd_scene load_steps=22 format=3]
+
+[ext_resource type="Script" path="res://source/battle/battle_encounter.gd" id="1_6hsnw"]
+[ext_resource type="FontFile" path="res://assets/fonts/pokemon-firered-leafgreen-font.otf" id="2_egt8j"]
+[ext_resource type="Texture2D" path="res://assets/sprites/people/rs_may.png" id="3_rte7a"]
+[ext_resource type="Texture2D" path="res://assets/sprites/people/red/red_normal.png" id="4_ppbl0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8m8g1"]
+atlas = ExtResource("3_rte7a")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxgat"]
+atlas = ExtResource("4_ppbl0")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8wrf"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_34ij3"]
+bg_color = Color(0.933333, 0.486275, 0.6, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iq7f7"]
+bg_color = Color(0.943333, 0.563333, 0.66, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ta0aa"]
+bg_color = Color(0.784314, 0.509804, 0.184314, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p4qid"]
+bg_color = Color(0.816667, 0.583333, 0.306667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgw3g"]
+bg_color = Color(0.262745, 0.639216, 0.262745, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hxu8o"]
+bg_color = Color(0.373333, 0.693333, 0.373333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trnsx"]
+bg_color = Color(0.235294, 0.388235, 0.760784, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j57pp"]
+bg_color = Color(0.35, 0.48, 0.796667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4xxqv"]
+bg_color = Color(0.956863, 0.772549, 0.258824, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gr3k"]
+bg_color = Color(0.963333, 0.806667, 0.37, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3dlhl"]
+bg_color = Color(0.956863, 0.772549, 0.258824, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vl5lb"]
+bg_color = Color(0.963333, 0.806667, 0.37, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lik6s"]
+bg_color = Color(0.533333, 0.533333, 0.533333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_js66w"]
+bg_color = Color(0.603333, 0.603333, 0.603333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.168627, 0.168627, 0.133333, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="BattleEncounter" type="CanvasLayer"]
+script = ExtResource("1_6hsnw")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="ArenaBG" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 104.0
+mouse_filter = 2
+color = Color(0.227451, 0.662745, 0.886275, 1)
+
+[node name="PanelBG" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_top = 104.0
+offset_right = 240.0
+offset_bottom = 160.0
+mouse_filter = 2
+color = Color(0.423529, 0.427451, 0.333333, 1)
+
+[node name="EnemyBorder" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 104.0
+offset_bottom = 42.0
+mouse_filter = 2
+color = Color(0.168627, 0.168627, 0.133333, 1)
+
+[node name="EnemyBg" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 102.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.913725, 0.898039, 0.823529, 1)
+
+[node name="EnemyName" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 14.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+text = "AARYA"
+
+[node name="EnemyHPBox" type="Control" parent="Root"]
+anchors_preset = 0
+
+[node name="LevelLabel" type="Label" parent="Root/EnemyHPBox"]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 10.0
+offset_right = 74.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+text = "Lv.200"
+
+[node name="BarBack" type="ColorRect" parent="Root/EnemyHPBox"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 26.0
+offset_right = 94.0
+offset_bottom = 32.0
+mouse_filter = 2
+color = Color(0.227451, 0.227451, 0.180392, 1)
+
+[node name="BarFill" type="ColorRect" parent="Root/EnemyHPBox"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 26.0
+offset_right = 94.0
+offset_bottom = 32.0
+mouse_filter = 2
+color = Color(0.219608, 0.721569, 0.219608, 1)
+
+[node name="PlayerBorder" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_left = 134.0
+offset_top = 64.0
+offset_right = 234.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(0.168627, 0.168627, 0.133333, 1)
+
+[node name="PlayerBg" type="ColorRect" parent="Root"]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 66.0
+offset_right = 232.0
+offset_bottom = 98.0
+mouse_filter = 2
+color = Color(0.913725, 0.898039, 0.823529, 1)
+
+[node name="PlayerName" type="Label" parent="Root"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 68.0
+offset_right = 142.0
+offset_bottom = 68.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+text = "ABHINAV"
+
+[node name="PlayerHPBox" type="Control" parent="Root"]
+anchors_preset = 0
+
+[node name="LevelLabel" type="Label" parent="Root/PlayerHPBox"]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 68.0
+offset_right = 206.0
+offset_bottom = 68.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+text = "Lv.5"
+
+[node name="BarBack" type="ColorRect" parent="Root/PlayerHPBox"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 84.0
+offset_right = 224.0
+offset_bottom = 90.0
+mouse_filter = 2
+color = Color(0.227451, 0.227451, 0.180392, 1)
+
+[node name="BarFill" type="ColorRect" parent="Root/PlayerHPBox"]
+layout_mode = 0
+offset_left = 144.0
+offset_top = 84.0
+offset_right = 224.0
+offset_bottom = 90.0
+mouse_filter = 2
+color = Color(0.219608, 0.721569, 0.219608, 1)
+
+[node name="EnemySprite" type="TextureRect" parent="Root"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 172.0
+offset_top = 12.0
+offset_right = 214.0
+offset_bottom = 68.0
+texture = SubResource("AtlasTexture_8m8g1")
+
+[node name="PlayerSprite" type="TextureRect" parent="Root"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 18.0
+offset_top = 46.0
+offset_right = 60.0
+offset_bottom = 102.0
+texture = SubResource("AtlasTexture_qxgat")
+
+[node name="DialogPanel" type="Panel" parent="Root"]
+layout_mode = 0
+offset_top = 104.0
+offset_right = 160.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_d8wrf")
+
+[node name="DialogLabel" type="Label" parent="Root/DialogPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 154.0
+offset_bottom = 50.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+autowrap_mode = 2
+
+[node name="AdvanceHint" type="Label" parent="Root/DialogPanel"]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 42.0
+offset_right = 146.0
+offset_bottom = 42.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
+text = "v"
+
+[node name="ActionMenu" type="GridContainer" parent="Root"]
+layout_mode = 0
+offset_left = 162.0
+offset_top = 106.0
+offset_right = 238.0
+offset_bottom = 158.0
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 2
+
+[node name="BtnAskOut" type="Button" parent="Root/ActionMenu"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_34ij3")
+theme_override_styles/hover = SubResource("StyleBoxFlat_iq7f7")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "ASK OUT"
+
+[node name="BtnAttack" type="Button" parent="Root/ActionMenu"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_ta0aa")
+theme_override_styles/hover = SubResource("StyleBoxFlat_p4qid")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "ATTACK"
+
+[node name="BtnOverthink" type="Button" parent="Root/ActionMenu"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_sgw3g")
+theme_override_styles/hover = SubResource("StyleBoxFlat_hxu8o")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "OVERTHINK"
+
+[node name="BtnRun" type="Button" parent="Root/ActionMenu"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_trnsx")
+theme_override_styles/hover = SubResource("StyleBoxFlat_j57pp")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "RUN"
+
+[node name="WinPanel" type="Control" parent="Root"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Bg" type="ColorRect" parent="Root/WinPanel"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 160.0
+mouse_filter = 2
+color = Color(0.05, 0.05, 0.08, 0.96)
+
+[node name="WinLabel" type="Label" parent="Root/WinPanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 18.0
+offset_right = 224.0
+offset_bottom = 118.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 8
+theme_override_colors/font_color = Color(0.956863, 0.772549, 0.258824, 1)
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ReplayButton" type="Button" parent="Root/WinPanel"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 0
+offset_left = 80.0
+offset_top = 128.0
+offset_right = 160.0
+offset_bottom = 159.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_4xxqv")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1gr3k")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "REPLAY"
+
+[node name="LosePanel" type="Control" parent="Root"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Bg" type="ColorRect" parent="Root/LosePanel"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 160.0
+mouse_filter = 2
+color = Color(0.04, 0.04, 0.04, 0.97)
+
+[node name="LoseLabel" type="Label" parent="Root/LosePanel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 14.0
+offset_right = 224.0
+offset_bottom = 84.0
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 7
+theme_override_colors/font_color = Color(0.956863, 0.772549, 0.258824, 1)
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RetryButton" type="Button" parent="Root/LosePanel"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 0
+offset_left = 30.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 131.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_3dlhl")
+theme_override_styles/hover = SubResource("StyleBoxFlat_vl5lb")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "RETRY"
+
+[node name="QuitButton" type="Button" parent="Root/LosePanel"]
+custom_minimum_size = Vector2(36, 24)
+layout_mode = 0
+offset_left = 130.0
+offset_top = 100.0
+offset_right = 190.0
+offset_bottom = 131.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_lik6s")
+theme_override_styles/hover = SubResource("StyleBoxFlat_js66w")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_egt8j")
+theme_override_font_sizes/font_size = 6
+text = "QUIT"
+
+[node name="TypeTimer" type="Timer" parent="."]
