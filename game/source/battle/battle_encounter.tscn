@@ -241,7 +241,7 @@ offset_bottom = 10.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
-text = "AARYA"
+text = "OLD KSHITIJ"
 
 [node name="EnemyHPBox" type="Control" parent="Root"]
 anchors_preset = 0
@@ -302,7 +302,7 @@ offset_bottom = 68.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
-text = "ABHINAV"
+text = "YOUNG KSHITIJ"
 
 [node name="PlayerHPBox" type="Control" parent="Root"]
 anchors_preset = 0

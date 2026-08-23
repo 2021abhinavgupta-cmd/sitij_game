@@ -17,11 +17,12 @@ RUN curl -sL -o godot.zip \
     && chmod +x Godot_v${GODOT_VERSION}_linux.x86_64 \
     && ln -s Godot_v${GODOT_VERSION}_linux.x86_64 godot
 
-RUN curl -sL -o templates.tpz \
+RUN GODOT_TEMPLATE_DIR="$(echo ${GODOT_VERSION} | sed 's/-/./')" \
+    && curl -sL -o templates.tpz \
     "https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}/Godot_v${GODOT_VERSION}_export_templates.tpz" \
-    && mkdir -p /root/.local/share/godot/export_templates/${GODOT_VERSION} \
+    && mkdir -p /root/.local/share/godot/export_templates/${GODOT_TEMPLATE_DIR} \
     && unzip -q templates.tpz -d /tmp/tpl \
-    && mv /tmp/tpl/templates/* /root/.local/share/godot/export_templates/${GODOT_VERSION}/ \
+    && mv /tmp/tpl/templates/* /root/.local/share/godot/export_templates/${GODOT_TEMPLATE_DIR}/ \
     && rm -rf templates.tpz /tmp/tpl
 
 WORKDIR /app

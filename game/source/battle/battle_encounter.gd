@@ -13,13 +13,13 @@ enum Action { ASK_OUT, ATTACK, OVERTHINK, RUN }
 const MAX_HP := 5
 const CRUSH_MAX_HP := 20
 const ATTACK_DAMAGE := 4 # ceil(MAX_HP * 0.75)
-const APPEAR := "A pretty girl AARYA appeared!"
+const APPEAR := "A pretty girl OLD KSHITIJ appeared!"
 const CHAR_DELAY := 0.046
 
 const RUN_SETS := [
-	["ABHINAV: maybe I should just leave?", "AARYA: no.", "...ok fine."],
-	["ABHINAV looked for an exit..", "AARYA is everywhere.", "Nice try."],
-	["ABHINAV tried to run.", "But AARYA blocked the way!", "There is no escape."],
+	["YOUNG KSHITIJ: maybe I should just leave?", "OLD KSHITIJ: no.", "...ok fine."],
+	["YOUNG KSHITIJ looked for an exit..", "OLD KSHITIJ is everywhere.", "Nice try."],
+	["YOUNG KSHITIJ tried to run.", "But OLD KSHITIJ blocked the way!", "There is no escape."],
 ]
 
 @onready var enemy_bar_fill: ColorRect = $Root/EnemyHPBox/BarFill
@@ -157,7 +157,7 @@ func advance_dialog() -> void:
 			_shake(player_sprite)
 			if new_hp <= 0:
 				message = next_msg
-				queue = ["ABHINAV fainted..."]
+				queue = ["YOUNG KSHITIJ fainted..."]
 				pending_lose = true
 				_start_typing()
 				return
@@ -194,7 +194,7 @@ func advance_dialog() -> void:
 		return
 
 	phase = Phase.ACTION
-	dialog_label.text = "What will\nABHINAV do?"
+	dialog_label.text = "What will\nYOUNG KSHITIJ do?"
 	advance_hint.hide()
 	action_menu.show()
 
@@ -212,14 +212,14 @@ func do_action(action: Action) -> void:
 			var msg: String
 			var q: Array
 			if n == 0:
-				msg = "ABHINAV is thinking...\nABHINAV is thinking..."
-				q = ["ABHINAV hurt himself\nin confusion!", "-15 HP!"]
+				msg = "YOUNG KSHITIJ is thinking...\nYOUNG KSHITIJ is thinking..."
+				q = ["YOUNG KSHITIJ hurt himself\nin confusion!", "-15 HP!"]
 			elif n == 1:
 				msg = "Still thinking..."
-				q = ["ABHINAV hurt himself\nagain!", "-15 HP again!"]
+				q = ["YOUNG KSHITIJ hurt himself\nagain!", "-15 HP again!"]
 			else:
-				msg = "...ABHINAV, please."
-				q = ["AARYA sighs quietly.", "-15 HP"]
+				msg = "...YOUNG KSHITIJ, please."
+				q = ["OLD KSHITIJ sighs quietly.", "-15 HP"]
 			overthink_count += 1
 			pending_damage = 1
 			set_phase_dialog(msg, q)
@@ -232,20 +232,20 @@ func do_action(action: Action) -> void:
 			pending_damage = ATTACK_DAMAGE
 			update_hp_ui()
 			_shake(enemy_sprite)
-			set_phase_dialog("ABHINAV used ATTACK!", [
+			set_phase_dialog("YOUNG KSHITIJ used ATTACK!", [
 				"It did 1 damage.",
-				"AARYA fights back!",
-				"AARYA used %s!\n-99 HP" % flavor,
+				"OLD KSHITIJ fights back!",
+				"OLD KSHITIJ used %s!\n-99 HP" % flavor,
 			])
 
 		Action.ASK_OUT:
 			pending_win = true
-			set_phase_dialog("ABHINAV took a deep breath...", [
-				"ABHINAV used ASK OUT!",
+			set_phase_dialog("YOUNG KSHITIJ took a deep breath...", [
+				"YOUNG KSHITIJ used ASK OUT!",
 				"It's super effective!",
 				"A critical hit!",
-				"AARYA fainted...",
-				"AARYA fainted..\nwith joy",
+				"OLD KSHITIJ fainted...",
+				"OLD KSHITIJ fainted..\nwith joy",
 			])
 
 
@@ -253,7 +253,7 @@ func show_win() -> void:
 	phase = Phase.WIN
 	dialog_panel.hide()
 	action_menu.hide()
-	win_label.text = "★ AARYA joined\nyour party! ★\n\nCOURAGE -> MAX\nHEART -> MAX\n[NEW SKILL: CUDDLES]\n\n(ESC to leave, REPLAY to fight again)"
+	win_label.text = "★ OLD KSHITIJ joined\nyour party! ★\n\nCOURAGE -> MAX\nHEART -> MAX\n[NEW SKILL: CUDDLES]\n\n(ESC to leave, REPLAY to fight again)"
 	win_panel.show()
 
 
@@ -261,7 +261,7 @@ func show_lose() -> void:
 	phase = Phase.LOSE
 	dialog_panel.hide()
 	action_menu.hide()
-	lose_label.text = "GAME OVER\n\nyou missed the opportunity...\nbut ABHINAV never loses hope...\n\n(ESC to leave)"
+	lose_label.text = "GAME OVER\n\nyou missed the opportunity...\nbut YOUNG KSHITIJ never loses hope...\n\n(ESC to leave)"
 	quit_btn.position = Vector2(120, 40)
 	lose_panel.show()
 
