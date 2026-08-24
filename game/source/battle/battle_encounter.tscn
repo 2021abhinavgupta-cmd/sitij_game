@@ -371,7 +371,7 @@ stretch_mode = 5
 
 [node name="DialogPanel" type="Panel" parent="Root"]
 layout_mode = 0
-offset_top = 118.0
+offset_top = 104.0
 offset_right = 160.0
 offset_bottom = 160.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d8wrf")
@@ -401,9 +401,9 @@ text = "v"
 [node name="ActionMenu" type="GridContainer" parent="Root"]
 layout_mode = 0
 offset_left = 162.0
-offset_top = 111.0
+offset_top = 104.0
 offset_right = 233.0
-offset_bottom = 158.0
+offset_bottom = 151.0
 theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 2
