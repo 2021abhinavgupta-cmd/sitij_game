@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" path="res://assets/battle/hp-box-top.png" id="6_hptop"]
 [ext_resource type="Texture2D" path="res://assets/battle/hp-box-bottom.png" id="7_hpbot"]
 [ext_resource type="Texture2D" path="res://assets/battle/enemy_icon.png" id="8_enico"]
+[ext_resource type="Texture2D" path="res://assets/battle/player_icon.png" id="9_plico"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8m8g1"]
 atlas = ExtResource("3_rte7a")
@@ -352,11 +353,13 @@ offset_left = 18.0
 offset_top = 46.0
 offset_right = 60.0
 offset_bottom = 102.0
-texture = SubResource("AtlasTexture_qxgat")
+texture = ExtResource("9_plico")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="DialogPanel" type="Panel" parent="Root"]
 layout_mode = 0
-offset_top = 104.0
+offset_top = 118.0
 offset_right = 160.0
 offset_bottom = 160.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_d8wrf")
@@ -366,7 +369,7 @@ layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
 offset_right = 154.0
-offset_bottom = 50.0
+offset_bottom = 36.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
@@ -375,9 +378,9 @@ autowrap_mode = 2
 [node name="AdvanceHint" type="Label" parent="Root/DialogPanel"]
 layout_mode = 0
 offset_left = 146.0
-offset_top = 42.0
+offset_top = 28.0
 offset_right = 146.0
-offset_bottom = 42.0
+offset_bottom = 28.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 8
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)

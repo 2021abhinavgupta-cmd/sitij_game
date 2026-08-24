@@ -13,7 +13,7 @@ enum Action { ASK_OUT, ATTACK, OVERTHINK, RUN }
 const MAX_HP := 5
 const CRUSH_MAX_HP := 20
 const ATTACK_DAMAGE := 4 # ceil(MAX_HP * 0.75)
-const APPEAR := "A pretty girl OLD KSHITIJ appeared!"
+const APPEAR := "A experienced Kshitij appeared"
 const CHAR_DELAY := 0.046
 
 const RUN_SETS := [
@@ -61,7 +61,6 @@ var message := ""
 var queue: Array = []
 var run_count := 0
 var overthink_count := 0
-var attack_count := 0
 var pending_damage := 0
 var pending_lose := false
 var pending_win := false
@@ -93,7 +92,6 @@ func start_encounter() -> void:
 	courage_stat = 5
 	run_count = 0
 	overthink_count = 0
-	attack_count = 0
 	pending_damage = 0
 	pending_lose = false
 	pending_win = false
@@ -225,8 +223,6 @@ func do_action(action: Action) -> void:
 			set_phase_dialog(msg, q)
 
 		Action.ATTACK:
-			var flavor := "KISSES" if attack_count % 2 == 0 else "HUGS"
-			attack_count += 1
 			crush_hp = max(0, crush_hp - 1)
 			courage_stat = min(99, courage_stat + 5)
 			pending_damage = ATTACK_DAMAGE
@@ -235,7 +231,7 @@ func do_action(action: Action) -> void:
 			set_phase_dialog("YOUNG KSHITIJ used ATTACK!", [
 				"It did 1 damage.",
 				"OLD KSHITIJ fights back!",
-				"OLD KSHITIJ used %s!\n-99 HP" % flavor,
+				"OLD KSHITIJ used AI!\n-99 HP",
 			])
 
 		Action.ASK_OUT:
