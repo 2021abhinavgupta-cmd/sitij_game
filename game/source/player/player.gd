@@ -28,6 +28,7 @@ func _ready() -> void:
 	ground = map_root.get_child(0)
 	upper_ground = map_root.get_child(1)
 	camera_2d.set_camera_limits_from_tilemap(ground)
+	AreaBanner.show_area_for_node(map_root)
 	snap_to_grid_map()
 	if Global.version_config:
 		if ResourceLoader.exists(Global.version_config.get_value("Player", "normal_sprite")):

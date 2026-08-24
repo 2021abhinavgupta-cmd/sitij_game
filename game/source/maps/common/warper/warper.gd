@@ -64,6 +64,7 @@ func warp_player(player: Player) -> void:
 		player.ground = target_area.get_child(0)
 		player.upper_ground = target_area.get_child(1)
 		player.camera_2d.set_camera_limits_from_tilemap(player.ground)
+		AreaBanner.show_area_for_node(target_area)
 	player.global_position = global_position - Vector2(8, 8)
 	var direction: Vector2
 	match exit_direction:

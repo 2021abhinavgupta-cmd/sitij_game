@@ -319,18 +319,18 @@ text = "Lv.5"
 
 [node name="BarBack" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 156.0
+offset_left = 154.0
 offset_top = 83.0
-offset_right = 222.0
+offset_right = 216.0
 offset_bottom = 90.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
 [node name="BarFill" type="ColorRect" parent="Root/PlayerHPBox"]
 layout_mode = 0
-offset_left = 156.0
+offset_left = 154.0
 offset_top = 83.0
-offset_right = 222.0
+offset_right = 216.0
 offset_bottom = 90.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
@@ -451,15 +451,16 @@ color = Color(0.05, 0.05, 0.08, 0.96)
 
 [node name="WinLabel" type="Label" parent="Root/WinPanel"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 18.0
-offset_right = 224.0
-offset_bottom = 118.0
+offset_left = 10.0
+offset_top = 14.0
+offset_right = 230.0
+offset_bottom = 122.0
 theme_override_fonts/font = ExtResource("2_egt8j")
-theme_override_font_sizes/font_size = 8
+theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(0.956863, 0.772549, 0.258824, 1)
 horizontal_alignment = 1
 autowrap_mode = 2
+clip_text = true
 
 [node name="ReplayButton" type="Button" parent="Root/WinPanel"]
 custom_minimum_size = Vector2(36, 24)

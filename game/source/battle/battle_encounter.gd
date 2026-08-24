@@ -249,7 +249,7 @@ func show_win() -> void:
 	phase = Phase.WIN
 	dialog_panel.hide()
 	action_menu.hide()
-	win_label.text = "★ OLD KSHITIJ joined\nyour party! ★\n\nCOURAGE -> MAX\nHEART -> MAX\n[NEW SKILL: CUDDLES]\n\n(ESC to leave, REPLAY to fight again)"
+	win_label.text = "OLD KSHITIJ joined\nyour party!\n\nCOURAGE -> MAX\nHEART -> MAX\n\n(ESC to leave, REPLAY to fight again)"
 	win_panel.show()
 
 
