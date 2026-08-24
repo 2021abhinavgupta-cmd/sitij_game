@@ -408,7 +408,7 @@ theme_override_constants/h_separation = 3
 theme_override_constants/v_separation = 3
 columns = 2
 
-[node name="BtnAskOut" type="Button" parent="Root/ActionMenu"]
+[node name="BtnConfront" type="Button" parent="Root/ActionMenu"]
 custom_minimum_size = Vector2(34, 22)
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_34ij3")
@@ -416,7 +416,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_iq7f7")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 6
-text = "ASK OUT"
+text = "CONFRONT"
 
 [node name="BtnAttack" type="Button" parent="Root/ActionMenu"]
 custom_minimum_size = Vector2(34, 22)

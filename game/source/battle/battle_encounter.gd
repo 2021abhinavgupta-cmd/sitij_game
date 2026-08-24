@@ -8,7 +8,7 @@ extends CanvasLayer
 signal finished(won: bool)
 
 enum Phase { DIALOG, ACTION, WIN, LOSE }
-enum Action { ASK_OUT, ATTACK, OVERTHINK, RUN }
+enum Action { CONFRONT, ATTACK, OVERTHINK, RUN }
 
 const MAX_HP := 5
 const CRUSH_MAX_HP := 20
@@ -20,6 +20,26 @@ const RUN_SETS := [
 	["YOUNG KSHITIJ: maybe I should just leave?", "OLD KSHITIJ: no.", "...ok fine."],
 	["YOUNG KSHITIJ looked for an exit..", "OLD KSHITIJ is everywhere.", "Nice try."],
 	["YOUNG KSHITIJ tried to run.", "But OLD KSHITIJ blocked the way!", "There is no escape."],
+]
+
+const CONFRONT_CORRECT_DAMAGE := 7 # to crush_hp, out of CRUSH_MAX_HP -- 3 correct answers empty it
+const CONFRONT_WRONG_DAMAGE := 2 # to player_hp, out of MAX_HP
+const QUESTIONS := [
+	{
+		"q": "What does Kshitij love\nthe most?",
+		"options": ["AI", "Food", "His team", "Work"],
+		"correct": 0,
+	},
+	{
+		"q": "Who is Kshitij's\nfav employee?",
+		"options": ["Vidit", "Abhinav", "Noobpur", "Happy"],
+		"correct": 1,
+	},
+	{
+		"q": "Who is Kshitij's\nbest client?",
+		"options": ["Mellow", "Agrius", "Omo", "All 3"],
+		"correct": 3,
+	},
 ]
 
 @onready var enemy_bar_fill: ColorRect = $Root/EnemyHUD/EnemyHPBox/BarFill
@@ -37,7 +57,7 @@ const RUN_SETS := [
 @onready var advance_hint: Label = $Root/DialogPanel/AdvanceHint
 
 @onready var action_menu: Control = $Root/ActionMenu
-@onready var btn_ask_out: Button = $Root/ActionMenu/BtnAskOut
+@onready var btn_confront: Button = $Root/ActionMenu/BtnConfront
 @onready var btn_attack: Button = $Root/ActionMenu/BtnAttack
 @onready var btn_overthink: Button = $Root/ActionMenu/BtnOverthink
 @onready var btn_run: Button = $Root/ActionMenu/BtnRun
@@ -65,15 +85,19 @@ var pending_damage := 0
 var pending_lose := false
 var pending_win := false
 
+var in_quiz := false
+var quiz_index := 0
+var quiz_awaiting_answer := false
+
 var _shown_chars := 0
 var _dialog_done := false
 
 
 func _ready() -> void:
-	btn_ask_out.pressed.connect(func(): do_action(Action.ASK_OUT))
-	btn_attack.pressed.connect(func(): do_action(Action.ATTACK))
-	btn_overthink.pressed.connect(func(): do_action(Action.OVERTHINK))
-	btn_run.pressed.connect(func(): do_action(Action.RUN))
+	btn_confront.pressed.connect(func(): _on_slot_pressed(0))
+	btn_attack.pressed.connect(func(): _on_slot_pressed(1))
+	btn_overthink.pressed.connect(func(): _on_slot_pressed(2))
+	btn_run.pressed.connect(func(): _on_slot_pressed(3))
 	dialog_panel.gui_input.connect(_on_dialog_input)
 	type_timer.timeout.connect(_on_type_tick)
 	win_replay_btn.pressed.connect(_on_replay)
@@ -95,6 +119,13 @@ func start_encounter() -> void:
 	pending_damage = 0
 	pending_lose = false
 	pending_win = false
+	in_quiz = false
+	quiz_index = 0
+	quiz_awaiting_answer = false
+	btn_confront.text = "CONFRONT"
+	btn_attack.text = "ATTACK"
+	btn_overthink.text = "OVERTHINK"
+	btn_run.text = "RUN"
 	win_panel.hide()
 	lose_panel.hide()
 	action_menu.hide()
@@ -164,13 +195,6 @@ func advance_dialog() -> void:
 			_start_typing()
 			return
 
-		if next_msg == "A critical hit!":
-			message = next_msg
-			queue = next_queue
-			_bounce(enemy_sprite)
-			_start_typing()
-			return
-
 		if pending_win and next_queue.is_empty():
 			message = next_msg
 			queue = []
@@ -191,10 +215,68 @@ func advance_dialog() -> void:
 		show_win()
 		return
 
+	if in_quiz:
+		if quiz_awaiting_answer:
+			quiz_awaiting_answer = false
+			ask_current_question()
+		else:
+			quiz_awaiting_answer = true
+			show_quiz_options()
+		return
+
 	phase = Phase.ACTION
 	dialog_label.text = "What will\nYOUNG KSHITIJ do?"
 	advance_hint.hide()
 	action_menu.show()
+
+
+func _on_slot_pressed(slot: int) -> void:
+	if in_quiz:
+		answer_question(slot)
+		return
+	match slot:
+		0: do_action(Action.CONFRONT)
+		1: do_action(Action.ATTACK)
+		2: do_action(Action.OVERTHINK)
+		3: do_action(Action.RUN)
+
+
+func ask_current_question() -> void:
+	if quiz_index >= QUESTIONS.size():
+		in_quiz = false
+		phase = Phase.ACTION
+		dialog_label.text = "What will\nYOUNG KSHITIJ do?"
+		advance_hint.hide()
+		action_menu.show()
+		return
+	set_phase_dialog(QUESTIONS[quiz_index]["q"], [])
+
+
+func show_quiz_options() -> void:
+	phase = Phase.ACTION
+	advance_hint.hide()
+	var opts: Array = QUESTIONS[quiz_index]["options"]
+	btn_confront.text = opts[0]
+	btn_attack.text = opts[1]
+	btn_overthink.text = opts[2]
+	btn_run.text = opts[3]
+	action_menu.show()
+
+
+func answer_question(slot: int) -> void:
+	action_menu.hide()
+	var q: Dictionary = QUESTIONS[quiz_index]
+	quiz_index += 1
+	if slot == q["correct"]:
+		crush_hp = max(0, crush_hp - CONFRONT_CORRECT_DAMAGE)
+		update_hp_ui()
+		_shake(enemy_sprite)
+		if crush_hp <= 0:
+			pending_win = true
+		set_phase_dialog("Correct!", ["OLD KSHITIJ is shaken!\n-%d HP" % CONFRONT_CORRECT_DAMAGE])
+	else:
+		pending_damage = CONFRONT_WRONG_DAMAGE
+		set_phase_dialog("Wrong!", ["YOUNG KSHITIJ panics!\n-%d HP" % CONFRONT_WRONG_DAMAGE])
 
 
 func do_action(action: Action) -> void:
@@ -234,15 +316,11 @@ func do_action(action: Action) -> void:
 				"OLD KSHITIJ used AI!\n-99 HP",
 			])
 
-		Action.ASK_OUT:
-			pending_win = true
-			set_phase_dialog("YOUNG KSHITIJ took a deep breath...", [
-				"YOUNG KSHITIJ used ASK OUT!",
-				"It's super effective!",
-				"A critical hit!",
-				"OLD KSHITIJ fainted...",
-				"OLD KSHITIJ fainted..\nwith joy",
-			])
+		Action.CONFRONT:
+			in_quiz = true
+			quiz_index = 0
+			quiz_awaiting_answer = false
+			ask_current_question()
 
 
 func show_win() -> void:
@@ -298,10 +376,3 @@ func _shake(node: Control) -> void:
 		var off := 4.0 if i % 2 == 0 else -4.0
 		tween.tween_property(node, "position:x", start_pos.x + off, 0.05)
 	tween.tween_property(node, "position:x", start_pos.x, 0.05)
-
-
-func _bounce(node: Control) -> void:
-	var tween := create_tween().set_loops(3)
-	var start_pos := node.position
-	tween.tween_property(node, "position:y", start_pos.y - 6, 0.15)
-	tween.tween_property(node, "position:y", start_pos.y, 0.15)
