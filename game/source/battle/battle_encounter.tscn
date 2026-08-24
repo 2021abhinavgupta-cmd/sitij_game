@@ -229,118 +229,130 @@ offset_bottom = 160.0
 mouse_filter = 2
 color = Color(0.423529, 0.427451, 0.333333, 1)
 
-[node name="EnemyBox" type="TextureRect" parent="Root"]
+[node name="EnemyHUD" type="Control" parent="Root"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 6.0
-offset_right = 94.0
-offset_bottom = 38.0
+offset_right = 6.0
+offset_bottom = 6.0
+scale = Vector2(0.78, 0.78)
+
+[node name="EnemyBox" type="TextureRect" parent="Root/EnemyHUD"]
+layout_mode = 0
+offset_right = 88.0
+offset_bottom = 32.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_hpbox_e")
 expand_mode = 1
 
-[node name="EnemyName" type="Label" parent="Root"]
+[node name="EnemyName" type="Label" parent="Root/EnemyHUD"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 10.0
-offset_right = 13.0
-offset_bottom = 10.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 7.0
+offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 text = "OLD KSHITIJ"
 
-[node name="EnemyHPBox" type="Control" parent="Root"]
+[node name="EnemyHPBox" type="Control" parent="Root/EnemyHUD"]
 anchors_preset = 0
 
-[node name="LevelLabel" type="Label" parent="Root/EnemyHPBox"]
+[node name="LevelLabel" type="Label" parent="Root/EnemyHUD/EnemyHPBox"]
 layout_mode = 0
-offset_left = 67.0
-offset_top = 10.0
-offset_right = 67.0
-offset_bottom = 10.0
+offset_left = 61.0
+offset_top = 4.0
+offset_right = 61.0
+offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 text = "Lv.200"
 
-[node name="BarBack" type="ColorRect" parent="Root/EnemyHPBox"]
+[node name="BarBack" type="ColorRect" parent="Root/EnemyHUD/EnemyHPBox"]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 25.0
-offset_right = 87.0
-offset_bottom = 32.0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 81.0
+offset_bottom = 26.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
-[node name="BarFill" type="ColorRect" parent="Root/EnemyHPBox"]
+[node name="BarFill" type="ColorRect" parent="Root/EnemyHUD/EnemyHPBox"]
 layout_mode = 0
-offset_left = 26.0
-offset_top = 25.0
-offset_right = 87.0
-offset_bottom = 32.0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 81.0
+offset_bottom = 26.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
-[node name="PlayerBox" type="TextureRect" parent="Root"]
+[node name="PlayerHUD" type="Control" parent="Root"]
 layout_mode = 0
 offset_left = 134.0
 offset_top = 64.0
-offset_right = 230.0
-offset_bottom = 96.0
+offset_right = 134.0
+offset_bottom = 64.0
+scale = Vector2(0.78, 0.78)
+
+[node name="PlayerBox" type="TextureRect" parent="Root/PlayerHUD"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 32.0
 mouse_filter = 2
 texture = SubResource("AtlasTexture_hpbox_p")
 expand_mode = 1
 
-[node name="PlayerName" type="Label" parent="Root"]
+[node name="PlayerName" type="Label" parent="Root/PlayerHUD"]
 layout_mode = 0
-offset_left = 141.0
-offset_top = 68.0
-offset_right = 141.0
-offset_bottom = 68.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 7.0
+offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 7
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 text = "YOUNG KSHITIJ"
 
-[node name="PlayerHPBox" type="Control" parent="Root"]
+[node name="PlayerHPBox" type="Control" parent="Root/PlayerHUD"]
 anchors_preset = 0
 
-[node name="LevelLabel" type="Label" parent="Root/PlayerHPBox"]
+[node name="LevelLabel" type="Label" parent="Root/PlayerHUD/PlayerHPBox"]
 layout_mode = 0
-offset_left = 204.0
-offset_top = 68.0
-offset_right = 204.0
-offset_bottom = 68.0
+offset_left = 70.0
+offset_top = 4.0
+offset_right = 70.0
+offset_bottom = 4.0
 theme_override_fonts/font = ExtResource("2_egt8j")
 theme_override_font_sizes/font_size = 6
 theme_override_colors/font_color = Color(0.101961, 0.101961, 0.101961, 1)
 text = "Lv.5"
 
-[node name="BarBack" type="ColorRect" parent="Root/PlayerHPBox"]
+[node name="BarBack" type="ColorRect" parent="Root/PlayerHUD/PlayerHPBox"]
 layout_mode = 0
-offset_left = 154.0
-offset_top = 83.0
-offset_right = 216.0
-offset_bottom = 90.0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 82.0
+offset_bottom = 26.0
 mouse_filter = 2
 color = Color(0.227451, 0.227451, 0.180392, 1)
 
-[node name="BarFill" type="ColorRect" parent="Root/PlayerHPBox"]
+[node name="BarFill" type="ColorRect" parent="Root/PlayerHUD/PlayerHPBox"]
 layout_mode = 0
-offset_left = 154.0
-offset_top = 83.0
-offset_right = 216.0
-offset_bottom = 90.0
+offset_left = 20.0
+offset_top = 19.0
+offset_right = 82.0
+offset_bottom = 26.0
 mouse_filter = 2
 color = Color(0.219608, 0.721569, 0.219608, 1)
 
 [node name="EnemySprite" type="TextureRect" parent="Root"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 172.0
-offset_top = 12.0
-offset_right = 214.0
+offset_left = 167.0
+offset_top = 0.0
+offset_right = 219.0
 offset_bottom = 68.0
 texture = ExtResource("8_enico")
 expand_mode = 1
@@ -349,9 +361,9 @@ stretch_mode = 5
 [node name="PlayerSprite" type="TextureRect" parent="Root"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 18.0
-offset_top = 46.0
-offset_right = 60.0
+offset_left = 13.0
+offset_top = 34.0
+offset_right = 65.0
 offset_bottom = 102.0
 texture = ExtResource("9_plico")
 expand_mode = 1

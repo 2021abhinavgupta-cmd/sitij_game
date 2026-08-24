@@ -22,14 +22,14 @@ const RUN_SETS := [
 	["YOUNG KSHITIJ tried to run.", "But OLD KSHITIJ blocked the way!", "There is no escape."],
 ]
 
-@onready var enemy_bar_fill: ColorRect = $Root/EnemyHPBox/BarFill
-@onready var enemy_bar_back: ColorRect = $Root/EnemyHPBox/BarBack
-@onready var enemy_level_label: Label = $Root/EnemyHPBox/LevelLabel
+@onready var enemy_bar_fill: ColorRect = $Root/EnemyHUD/EnemyHPBox/BarFill
+@onready var enemy_bar_back: ColorRect = $Root/EnemyHUD/EnemyHPBox/BarBack
+@onready var enemy_level_label: Label = $Root/EnemyHUD/EnemyHPBox/LevelLabel
 @onready var enemy_sprite: TextureRect = $Root/EnemySprite
 
-@onready var player_bar_fill: ColorRect = $Root/PlayerHPBox/BarFill
-@onready var player_bar_back: ColorRect = $Root/PlayerHPBox/BarBack
-@onready var player_level_label: Label = $Root/PlayerHPBox/LevelLabel
+@onready var player_bar_fill: ColorRect = $Root/PlayerHUD/PlayerHPBox/BarFill
+@onready var player_bar_back: ColorRect = $Root/PlayerHUD/PlayerHPBox/BarBack
+@onready var player_level_label: Label = $Root/PlayerHUD/PlayerHPBox/LevelLabel
 @onready var player_sprite: TextureRect = $Root/PlayerSprite
 
 @onready var dialog_panel: Panel = $Root/DialogPanel
