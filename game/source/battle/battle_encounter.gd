@@ -54,6 +54,11 @@ const QUESTIONS := [
 		"options": ["Founder", "Artist", "Sleeping", "Coding"],
 		"correct": 0,
 	},
+	{
+		"q": "Who fixes content/design\nmistakes first?",
+		"options": ["Nupur", "Palak", "Mohit", "Happy"],
+		"correct": 2,
+	},
 ]
 
 @onready var enemy_bar_fill: ColorRect = $Root/EnemyHUD/EnemyHPBox/BarFill
