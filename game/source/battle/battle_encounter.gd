@@ -22,7 +22,6 @@ const RUN_SETS := [
 	["YOUNG KSHITIJ tried to run.", "But OLD KSHITIJ blocked the way!", "There is no escape."],
 ]
 
-const CONFRONT_CORRECT_DAMAGE := 7 # to crush_hp, out of CRUSH_MAX_HP -- 3 correct answers empty it
 const CONFRONT_WRONG_DAMAGE := 2 # to player_hp, out of MAX_HP
 const QUESTIONS := [
 	{
@@ -282,13 +281,15 @@ func answer_question(slot: int) -> void:
 	action_menu.hide()
 	var q: Dictionary = QUESTIONS[quiz_index]
 	if slot == q["correct"]:
+		var remaining: int = QUESTIONS.size() - quiz_index
+		var dmg: int = int(ceil(float(crush_hp) / remaining))
 		quiz_index += 1
-		crush_hp = max(0, crush_hp - CONFRONT_CORRECT_DAMAGE)
+		crush_hp = max(0, crush_hp - dmg)
 		update_hp_ui()
 		_shake(enemy_sprite)
 		if crush_hp <= 0:
 			pending_win = true
-		set_phase_dialog("Correct!", ["OLD KSHITIJ is shaken!\n-%d HP" % CONFRONT_CORRECT_DAMAGE])
+		set_phase_dialog("Correct!", ["OLD KSHITIJ is shaken!\n-%d HP" % dmg])
 	else:
 		pending_damage = CONFRONT_WRONG_DAMAGE
 		set_phase_dialog("Wrong!", ["YOUNG KSHITIJ panics!\n-%d HP" % CONFRONT_WRONG_DAMAGE])
