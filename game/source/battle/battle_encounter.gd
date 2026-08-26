@@ -55,7 +55,7 @@ const QUESTIONS := [
 		"correct": 0,
 	},
 	{
-		"q": "Who fixes content/design\nmistakes first?",
+		"q": "If there are some mistakes\nin content design website\nand videos with whom will\nKshitij deal first?",
 		"options": ["Nupur", "Abhinav", "Mohit", "Happy"],
 		"correct": 2,
 	},
