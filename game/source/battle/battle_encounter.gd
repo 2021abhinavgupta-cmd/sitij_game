@@ -56,8 +56,13 @@ const QUESTIONS := [
 	},
 	{
 		"q": "Who fixes content/design\nmistakes first?",
-		"options": ["Nupur", "Palak", "Mohit", "Happy"],
+		"options": ["Nupur", "Abhinav", "Mohit", "Happy"],
 		"correct": 2,
+	},
+	{
+		"q": "Who will Kshitij\nlose an argument to?",
+		"options": ["Henny", "Reetu", "Noorish", "Mohit"],
+		"correct": 3,
 	},
 ]
 
