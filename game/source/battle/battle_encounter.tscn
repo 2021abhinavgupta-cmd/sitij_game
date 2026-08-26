@@ -290,10 +290,10 @@ color = Color(0.219608, 0.721569, 0.219608, 1)
 
 [node name="PlayerHUD" type="Control" parent="Root"]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 64.0
-offset_right = 134.0
-offset_bottom = 64.0
+offset_left = 124.0
+offset_top = 72.0
+offset_right = 124.0
+offset_bottom = 72.0
 scale = Vector2(0.78, 0.78)
 
 [node name="PlayerBox" type="TextureRect" parent="Root/PlayerHUD"]
@@ -350,10 +350,10 @@ color = Color(0.219608, 0.721569, 0.219608, 1)
 [node name="EnemySprite" type="TextureRect" parent="Root"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 167.0
-offset_top = 0.0
-offset_right = 219.0
-offset_bottom = 68.0
+offset_left = 152.0
+offset_top = -6.0
+offset_right = 204.0
+offset_bottom = 62.0
 texture = ExtResource("8_enico")
 expand_mode = 1
 stretch_mode = 5
@@ -361,9 +361,9 @@ stretch_mode = 5
 [node name="PlayerSprite" type="TextureRect" parent="Root"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 13.0
-offset_top = 34.0
-offset_right = 65.0
+offset_left = 30.0
+offset_top = 14.0
+offset_right = 98.0
 offset_bottom = 102.0
 texture = ExtResource("9_plico")
 expand_mode = 1

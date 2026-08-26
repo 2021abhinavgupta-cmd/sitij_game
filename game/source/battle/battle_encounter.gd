@@ -40,6 +40,21 @@ const QUESTIONS := [
 		"options": ["Mellow", "Agrius", "Omo", "All 3"],
 		"correct": 3,
 	},
+	{
+		"q": "What does Kshitij\nthink over problems?",
+		"options": ["Good", "None", "Few", "A lot"],
+		"correct": 0,
+	},
+	{
+		"q": "Who troubles Kshitij\na lot?",
+		"options": ["Vidit", "Abhinav", "Mohit", "Noorish"],
+		"correct": 3,
+	},
+	{
+		"q": "What does Kshitij\nenjoy a lot?",
+		"options": ["Founder", "Artist", "Sleeping", "Coding"],
+		"correct": 0,
+	},
 ]
 
 @onready var enemy_bar_fill: ColorRect = $Root/EnemyHUD/EnemyHPBox/BarFill
@@ -266,8 +281,8 @@ func show_quiz_options() -> void:
 func answer_question(slot: int) -> void:
 	action_menu.hide()
 	var q: Dictionary = QUESTIONS[quiz_index]
-	quiz_index += 1
 	if slot == q["correct"]:
+		quiz_index += 1
 		crush_hp = max(0, crush_hp - CONFRONT_CORRECT_DAMAGE)
 		update_hp_ui()
 		_shake(enemy_sprite)
